@@ -1,25 +1,45 @@
 package com.tt1.test;
 
-public class Repositorio {
-    private DBStub db;
+import java.util.List;
 
-    public Repositorio(DBStub db) {
+public class Repositorio implements IRepositorio {
+    private IDB db;
+
+    public Repositorio(IDB db) {
         this.db = db;
     }
 
+    @Override
     public ToDo encontrarTarea(String nombre) {
-        throw new UnsupportedOperationException("Clase aún no implementada.");
+        return db.buscarTarea(nombre);
     }
 
+    @Override
     public void marcarComoCompletada(String nombre) {
-        throw new UnsupportedOperationException("Clase aún no implementada.");
+        ToDo tarea = db.buscarTarea(nombre);
+        if (tarea != null) {
+            tarea.setCompletado(true);
+            db.actualizarTarea(tarea);
+        }
     }
 
+    @Override
     public void guardarTarea(ToDo tarea) {
-        throw new UnsupportedOperationException("Clase aún no implementada.");
+        db.agregarTarea(tarea);
     }
 
+    @Override
     public void guardarEmail(String email) {
-        throw new UnsupportedOperationException("Clase aún no implementada.");
+        db.agregarEmail(email);
+    }
+
+    @Override
+    public List<ToDo> listarTareas() {
+        return db.obtenerTodas();
+    }
+
+    @Override
+    public List<String> obtenerEmails() {
+        return db.obtenerEmails();
     }
 }

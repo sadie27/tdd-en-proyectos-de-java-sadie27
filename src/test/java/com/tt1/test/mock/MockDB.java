@@ -1,9 +1,12 @@
-package com.tt1.test;
+package com.tt1.test.mock;
+
+import com.tt1.test.IDB;
+import com.tt1.test.ToDo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBStub implements IDB {
+public class MockDB implements IDB {
     private List<ToDo> tareas = new ArrayList<>();
     private List<String> emails = new ArrayList<>();
 
@@ -11,6 +14,7 @@ public class DBStub implements IDB {
     public void agregarTarea(ToDo tarea) {
         tareas.add(tarea);
     }
+
     @Override
     public ToDo buscarTarea(String nombre) {
         return tareas.stream()
@@ -18,6 +22,7 @@ public class DBStub implements IDB {
                 .findFirst()
                 .orElse(null);
     }
+
     @Override
     public List<ToDo> obtenerTodas() {
         return new ArrayList<>(tareas);
